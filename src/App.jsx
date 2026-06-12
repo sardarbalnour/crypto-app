@@ -1,10 +1,8 @@
-
+import HomePage from "./components/templates/HomePage";
 
 function App() {
-
-  return (
-    <h1>Sardar Crypto App</h1>
-  )
+  return <HomePage />;
 }
 
-export default App
+export default App;
+// api key: CG-hk4aK834L9KCSmcwfMiWdF7H
