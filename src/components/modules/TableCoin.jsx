@@ -3,10 +3,12 @@ import { LineWave } from "react-loader-spinner";
 import chartUp from "../../assets/chart-up.svg";
 import chartDown from "../../assets/chart-down.svg";
 
+import styles from "./TableCoin.module.css";
+
 function TableCoin({ coins, isLoading }) {
   console.log(coins);
   return (
-    <div>
+    <div className={styles.container}>
       {isLoading ? (
         <LineWave
           height="300"
@@ -16,7 +18,7 @@ function TableCoin({ coins, isLoading }) {
           lastLineColor="green"
         />
       ) : (
-        <table>
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Coin</th>
@@ -54,14 +56,16 @@ const TableRow = ({
   return (
     <tr key={id}>
       <td>
-        <div>
+        <div className={styles.symbol}>
           <img src={image} alt="" />
           <span>{symbol.toUpperCase()}</span>
         </div>
       </td>
       <td>{name}</td>
       <td>${current_price.toLocaleString()}</td>
-      <td>{price_change.toFixed(2)}%</td>
+      <td className={price_change > 0 ? styles.success : styles.error}>
+        {price_change.toFixed(2)}%
+      </td>
       <td>{total_volume}</td>
       <td>
         <img src={price_change > 0 ? chartUp : chartDown} alt="" />
