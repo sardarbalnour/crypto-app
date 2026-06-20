@@ -3,6 +3,8 @@ import { LineWave } from "react-loader-spinner";
 
 import { searchCoin } from "../../services/cryptoApi";
 
+import styles from "./Search.module.css";
+
 function Search({ currency, setCurrency }) {
   const [text, setText] = useState("");
   const [coins, setCoins] = useState([]);
@@ -45,7 +47,7 @@ function Search({ currency, setCurrency }) {
   }, [text]);
 
   return (
-    <div>
+    <div className={styles.searchBox}>
       <input
         type="text"
         placeholder="Search"
@@ -57,25 +59,27 @@ function Search({ currency, setCurrency }) {
         <option value="eur">EUR</option>
         <option value="jpy">JPY</option>
       </select>
-      <div>
-        {isLoading && (
-          <LineWave
-            width="70px"
-            height="70px"
-            firstLineColor="green"
-            middleLineColor="red"
-            lastLineColor="green"
-          />
-        )}
-        <ul>
-          {coins.map((coin) => (
-            <li key={coin.id}>
-              <img src={coin.thumb} alt={coin.name} />
-              <p>{coin.name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {(!!coins.length || isLoading) && (
+        <div className={styles.searchResult}>
+          {isLoading && (
+            <LineWave
+              width="70px"
+              height="70px"
+              firstLineColor="green"
+              middleLineColor="red"
+              lastLineColor="green"
+            />
+          )}
+          <ul>
+            {coins.map((coin) => (
+              <li key={coin.id}>
+                <img src={coin.thumb} alt={coin.name} />
+                <p>{coin.name}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
