@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
+import { LineWave } from "react-loader-spinner";
+
 import { searchCoin } from "../../services/cryptoApi";
 
 function Search({ currency, setCurrency }) {
   const [text, setText] = useState("");
   const [coins, setCoins] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
-    if (!text) return;
+
+    setCoins([]);
+    if (!text) {
+      setIsLoading(false);
+      return;
+    }
 
     const search = async () => {
       try {
@@ -17,6 +25,7 @@ function Search({ currency, setCurrency }) {
         const json = await res.json();
         if (json.coins) {
           setCoins(json.coins);
+          setIsLoading(false);
         } else {
           alert(json.status.error_message);
         }
@@ -27,6 +36,7 @@ function Search({ currency, setCurrency }) {
       }
     };
 
+    setIsLoading(true);
     search();
 
     return () => {
@@ -47,6 +57,25 @@ function Search({ currency, setCurrency }) {
         <option value="eur">EUR</option>
         <option value="jpy">JPY</option>
       </select>
+      <div>
+        {isLoading && (
+          <LineWave
+            width="70px"
+            height="70px"
+            firstLineColor="green"
+            middleLineColor="red"
+            lastLineColor="green"
+          />
+        )}
+        <ul>
+          {coins.map((coin) => (
+            <li key={coin.id}>
+              <img src={coin.thumb} alt={coin.name} />
+              <p>{coin.name}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
