@@ -22,12 +22,17 @@
   cursor: pointer;
 }
 
-.chart{
-    width: 800px;
-    margin: auto;
-    background-color: #18181ce6;
-    padding: 20px;
-    margin-top: 50px;
-    border: 2px solid #404042;
-    border-radius: 5px;
+.chart {
+  width: 800px;
+  margin: auto;
+  background-color: #18181ce6;
+  padding: 20px;
+  margin-top: 50px;
+  border: 2px solid #404042;
+  border-radius: 5px;
+}
+
+.graph {
+  width: 760px;
+  height: 300px;
 }
